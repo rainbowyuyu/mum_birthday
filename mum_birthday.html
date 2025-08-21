@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给妈妈的生日祝福</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入优雅字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#f67280',
+                        secondary: '#c06c84',
+                        accent: '#6c5b7b',
+                        light: '#f8b195',
+                    },
+                    fontFamily: {
+                        serif: ['Noto Serif SC', 'serif'],
+                        sans: ['ZCOOL XiaoWei', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .carousel-item {
+                display: none;
+                animation: fadeIn 1.2s ease forwards;
+            }
+            .carousel-item.active {
+                display: flex;
+            }
+            .cake-spin {
+                animation: spin 15s linear infinite;
+            }
+            .pulse-slow {
+                animation: pulse 3s infinite;
+            }
+        }
+
+        /* 基础动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* 烟花动画 */
+        .firework {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: firework 2s ease-out forwards;
+        }
+        @keyframes firework {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-150px);
+                opacity: 0;
+            }
+        }
+
+        /* 轮播导航 */
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .carousel-dot.active {
+            background: #f67280;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen overflow-x-hidden relative font-sans bg-gradient-to-r from-primary via-light to-secondary">
+    <!-- 动态背景元素 -->
+    <div id="fireworks-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- 装饰性蛋糕图标 -->
+    <div class="fixed top-10 right-10 md:top-16 md:right-16 z-10 hidden md:block">
+        <i class="fa fa-birthday-cake text-5xl text-primary cake-spin"></i>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container mx-auto px-4 py-12 max-w-5xl relative z-10">
+        <!-- 标题区 -->
+        <div class="text-center mb-10 mt-6">
+            <h1 class="text-[clamp(2.5rem,8vw,4rem)] font-serif font-bold text-primary text-shadow pulse-slow">生日快乐，亲爱的妈妈</h1>
+            <p class="text-accent text-lg md:text-xl mt-2 font-serif">从小时候的依赖到现在的成熟，我永远感恩有你。</p>
+        </div>
+
+        <!-- 轮播容器 -->
+        <div class="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden">
+            <!-- 轮播内容区 -->
+            <div id="carousel" class="min-h-[500px] md:min-h-[600px]">
+                <!-- 轮播项1 -->
+                <div class="carousel-item active flex flex-col md:flex-row items-center justify-center h-full p-6 md:p-12 gap-8">
+                    <div class="md:w-1/2">
+                        <p class="text-gray-700 text-lg md:text-xl leading-relaxed font-serif">
+                            小时候，你是我最坚强的后盾，风雨中的指引。你总是默默为我们奉献，把生活的每个细节都照顾得井井有条。今天，我想说一声：妈妈，谢谢你！
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-500">
+                        <img src="love.jpg" alt="love" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+
+                <!-- 轮播项2 -->
+                <div class="carousel-item flex flex-col md:flex-row items-center justify-center h-full p-6 md:p-12 gap-8">
+                    <div class="md:w-1/2 order-2 md:order-1">
+                        <p class="text-gray-700 text-lg md:text-xl leading-relaxed font-serif">
+                            你从不抱怨，总是温柔地包容一切。当我遇到困难时，依然是你教我如何坚持，如何相信自己。每次回家的时候，都能感受到你无时无刻的温暖。
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-500 order-1 md:order-2">
+                        <img src="heart.webp" alt="heart" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+
+                <!-- 轮播项3 -->
+                <div class="carousel-item flex flex-col md:flex-row items-center justify-center h-full p-6 md:p-12 gap-8">
+                    <div class="md:w-1/2">
+                        <p class="text-gray-700 text-lg md:text-xl leading-relaxed font-serif">
+                            即使时光流转，你那无私的爱从未改变。你是我生命中最闪亮的星，总能为我照亮前行的路。我会永远珍惜和你在一起的时光，永远不离不弃。
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-500">
+                        <img src="star.jpg" alt="star" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+
+                <!-- 轮播项4（结尾祝福） -->
+                <div class="carousel-item flex flex-col items-center justify-center h-full p-6 md:p-12 text-center">
+                    <p class="text-gray-700 text-xl md:text-2xl leading-relaxed font-serif mb-8">
+                        健康与快乐，永远陪伴你，妈妈。你是我心中最亮的星辰，愿你一生平安、幸福。
+                    </p>
+                    <div class="flex justify-center gap-6 mt-6">
+                        <i class="fa fa-heart text-primary text-3xl animate-pulse"></i>
+                        <i class="fa fa-heart text-secondary text-3xl animate-pulse" style="animation-delay: 0.3s;"></i>
+                        <i class="fa fa-heart text-accent text-3xl animate-pulse" style="animation-delay: 0.6s;"></i>
+                    </div>
+                    <div class="md:w-1/2 rounded-xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform duration-500">
+                        <img src="cake.jpg" alt="cake" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 轮播导航按钮 -->
+            <button id="prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center shadow-md hover:bg-white transition-colors">
+                <i class="fa fa-angle-left text-primary text-xl"></i>
+            </button>
+            <button id="next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center shadow-md hover:bg-white transition-colors">
+                <i class="fa fa-angle-right text-primary text-xl"></i>
+            </button>
+
+            <!-- 轮播指示器 -->
+            <div class="flex justify-center gap-3 absolute bottom-6 left-1/2 -translate-x-1/2">
+                <div class="carousel-dot active" data-index="0"></div>
+                <div class="carousel-dot" data-index="1"></div>
+                <div class="carousel-dot" data-index="2"></div>
+                <div class="carousel-dot" data-index="3"></div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="mt-12 text-center text-gray-600 text-sm font-serif">
+            <p>妈妈生日快乐！</p>
+        </div>
+    </div>
+
+    <script>
+        // 轮播功能实现
+        document.addEventListener('DOMContentLoaded', () => {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentIndex = 0;
+            let interval;
+
+            // 初始化轮播自动播放
+            startCarousel();
+
+            // 切换轮播项
+            function showSlide(index) {
+                // 隐藏所有项
+                carouselItems.forEach(item => item.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+
+                // 显示当前项
+                currentIndex = (index + carouselItems.length) % carouselItems.length;
+                carouselItems[currentIndex].classList.add('active');
+                dots[currentIndex].classList.add('active');
+            }
+
+            // 下一张
+            function nextSlide() {
+                showSlide(currentIndex + 1);
+            }
+
+            // 上一张
+            function prevSlide() {
+                showSlide(currentIndex - 1);
+            }
+
+            // 自动播放
+            function startCarousel() {
+                interval = setInterval(nextSlide, 6000); // 6秒切换一次
+            }
+
+            // 事件监听
+            nextBtn.addEventListener('click', () => {
+                clearInterval(interval);
+                nextSlide();
+                startCarousel();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                clearInterval(interval);
+                prevSlide();
+                startCarousel();
+            });
+
+            // 点击指示器切换
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    clearInterval(interval);
+                    showSlide(parseInt(dot.dataset.index));
+                    startCarousel();
+                });
+            });
+
+            // 烟花效果
+            function createFirework() {
+                const fireworksContainer = document.getElementById('fireworks-container');
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+
+                // 随机位置和颜色
+                const left = Math.random() * 100;
+                const size = Math.random() * 4 + 2;
+                const colors = ['#f67280', '#c06c84', '#6c5b7b', '#f8b195', '#ab6c84'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                firework.style.left = `${left}vw`;
+                firework.style.bottom = '-10px';
+                firework.style.width = `${size}px`;
+                firework.style.height = `${size}px`;
+                firework.style.backgroundColor = color;
+                firework.style.boxShadow = `0 0 ${size * 5}px ${color}`;
+                firework.style.animationDelay = `${Math.random() * 3}s`;
+
+                fireworksContainer.appendChild(firework);
+
+                // 移除已完成动画的烟花
+                setTimeout(() => {
+                    firework.remove();
+                }, 2000);
+            }
+
+            // 定时创建烟花
+            setInterval(createFirework, 300);
+            // 初始创建一批烟花
+            for (let i = 0; i < 10; i++) {
+                setTimeout(createFirework, i * 300);
+            }
+        });
+    </script>
+</body>
+</html>
